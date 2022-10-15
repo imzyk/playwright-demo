@@ -3,11 +3,16 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test:e2e": "cucumber-js --require cucumber.conf.js --require tests/stepDefinitions/**/*.js --format @cucumber/pretty-formatter"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@playwright/test": "^1.27.1"
+    "@cucumber/cucumber": "^7.3.1",
+    "@cucumber/pretty-formatter": "^1.0.0",
+    "@playwright/test": "^1.27.1",
+    "playwright": "^1.27.1"
   }
 }
