@@ -25,7 +25,7 @@ test('Verify mandatory fields', async ({ page }) => {
   await expect(contactPage.messageError).not.toBeVisible();
 });
 
-test.only('Verify successful submit', async ({ page }) => {
+test('Verify successful submit', async ({ page }) => {
   const contactPage = new ContactPage(page);
   await contactPage.populateMandatoryFields("testForeName", "test@test.com", "Hello World");
   await contactPage.submit();
