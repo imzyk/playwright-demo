@@ -1,17 +1,12 @@
 // @ts-check
-const { test, expect } = require('@playwright/test');
-const { ShopPage } = require('../pages/shop.page');
-const { MenuPage } = require('../pages/menu.page');
-const { CartPage } = require('../pages/cart.page');
+const { test, expect } = require('../fixtures/basePage');
 
 test.beforeEach(async ({ page }) => {
   await page.goto("/");
 });
 
-test('Shop products', async ({ page }) => {
-  const menuPage = new MenuPage(page);
+test('Shop products', async ({ menuPage, shopPage, cartPage }) => {
   await menuPage.browseToShop();
-  const shopPage = new ShopPage(page);
   const expectedProducts = {
     "Stuffed Frog": 2,
     "Fluffy Bunny": 5,
@@ -26,7 +21,6 @@ test('Shop products', async ({ page }) => {
   }
 
   await menuPage.browseToCart();
-  const cartPage = new CartPage(page);
   let totalValue = 0;
   for (let item of await cartPage.getItems()) {
     console.log(`Parse ${JSON.stringify(item)}`);

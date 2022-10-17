@@ -1,17 +1,13 @@
 // @ts-check
-const { test, expect } = require('@playwright/test');
-const { ContactPage } = require('../pages/contact.page');
-const { MenuPage } = require('../pages/menu.page');
+const { test, expect } = require('../fixtures/basePage');
 
-test.beforeEach(async ({ page }) => {
+test.beforeEach(async ({ page, menuPage }) => {
   await page.goto("/");
-  const menuPage = new MenuPage(page);
-  await menuPage.browseToContact();
+  menuPage.browseToContact();
 });
 
 
-test('Verify mandatory fields', async ({ page }) => {
-  const contactPage = new ContactPage(page);
+test('Verify mandatory fields', async ({ contactPage }) => {
   await contactPage.submit();
   await expect(contactPage.alertError).toContainText(contactPage.mandatoryAlertErrorText);
   await expect(contactPage.forenameError).toHaveText(contactPage.mandatoryForenameText);
@@ -25,8 +21,7 @@ test('Verify mandatory fields', async ({ page }) => {
   await expect(contactPage.messageError).not.toBeVisible();
 });
 
-test('Verify successful submit', async ({ page }) => {
-  const contactPage = new ContactPage(page);
+test('Verify successful submit', async ({ contactPage }) => {
   await contactPage.populateMandatoryFields("testForeName", "test@test.com", "Hello World");
   await contactPage.submit();
   await expect(contactPage.alertConfirm).toHaveText(contactPage.confirmMessageText, { timeout: 15000 });
