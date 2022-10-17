@@ -2,6 +2,11 @@
 
 const { Before, BeforeAll, AfterAll, After, setDefaultTimeout } = require("@cucumber/cucumber");
 const { chromium } = require("playwright");
+const { ContactPage } = require('./pages/contact.page');
+const { MenuPage } = require('./pages/menu.page');
+const { CartPage } = require('./pages/cart.page');
+const { ShopPage } = require('./pages/shop.page');
+
 
 setDefaultTimeout(60000)
 
@@ -21,12 +26,18 @@ AfterAll(async function () {
 
 // Create a new browser context and page per scenario
 Before(async function () {
-   global.context = await global.browser.newContext();
-   global.page = await global.context.newPage();
+   this.context = await global.browser.newContext();
+   this.page = await this.context.newPage();
+   console.log(JSON.stringify(this.page));
+   this.contactPage = new ContactPage(this.page);
+   this.menuPage = new MenuPage(this.page);
+   this.cartPage = new CartPage(this.page);
+   this.shopPage = new ShopPage(this.page);
+   
 });
 
 // Cleanup after each scenario
 After(async function () {
-   await global.page.close();
-   await global.context.close();
+   await this.page.close();
+   await this.context.close();
 });

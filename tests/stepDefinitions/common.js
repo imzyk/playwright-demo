@@ -1,22 +1,20 @@
 const { When, Given } = require('@cucumber/cucumber')
-const { MenuPage } = require('../../pages/menu.page');
 
-async function commonBrowse(pageName) {
-   const menuPage = new MenuPage(page);
+async function commonBrowse(world, pageName) {
    if (pageName == "contact") {
-      await menuPage.browseToContact();
+      await world.menuPage.browseToContact();
    } else if (pageName == "cart") {
-      await menuPage.browseToCart();
+      await world.menuPage.browseToCart();
    } else if (pageName == "shop") {
-      await menuPage.browseToShop();
+      await world.menuPage.browseToShop();
    }
 }
 
 Given('I initially browse to {string} page', async function (pageName) {
-   await page.goto("https://jupiter.cloud.planittesting.com");
-   commonBrowse(pageName);
+   await this.page.goto("https://jupiter.cloud.planittesting.com");
+   commonBrowse(this, pageName);
 })
 
 When('I browse to {string} page subsquently', async function (pageName) {
-   commonBrowse(pageName);
+   commonBrowse(this, pageName);
 })

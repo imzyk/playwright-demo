@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test:e2e": "cucumber-js --require cucumber.conf.js --require tests/stepDefinitions/**/*.js --format @cucumber/pretty-formatter"
+    "test:e2e": "cucumber-js --require cucumber.conf.js --require tests/stepDefinitions/**/*.js --format @cucumber/pretty-formatter",
+    "test:smoking": "cucumber-js --require cucumber.conf.js --require tests/stepDefinitions/**/*.js --format @cucumber/pretty-formatter --tags '@Smoking'"
   },
   "keywords": [],
   "author": "",
